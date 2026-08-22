@@ -48,7 +48,8 @@ export function Modal({
   if (!open) return null
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center">
+    // Edge to edge from the bottom on a phone, a centred card from `sm` up.
+    <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-4">
       <div
         className="absolute inset-0 animate-fade-in bg-slate-900/50 backdrop-blur-sm"
         onClick={onClose}
@@ -62,11 +63,14 @@ export function Modal({
         aria-describedby={description ? `${id}-description` : undefined}
         tabIndex={-1}
         className={cn(
-          'relative w-full animate-slide-up rounded-md border border-line bg-[var(--card)] shadow-2xl',
-          size === 'sm' ? 'max-w-md' : 'max-w-2xl',
+          'relative flex w-full animate-slide-up flex-col border border-line bg-[var(--card)] shadow-2xl',
+          // A sheet rises from the bottom edge on a phone, so only its top
+          // corners round; it becomes a fully rounded card at `sm`.
+          'max-h-[92dvh] rounded-t-xl sm:max-h-[85dvh] sm:rounded-md',
+          size === 'sm' ? 'sm:max-w-md' : 'sm:max-w-2xl',
         )}
       >
-        <div className="space-y-1 border-b border-line px-5 py-4">
+        <div className="shrink-0 space-y-1 border-b border-line px-5 py-4">
           <h2 id={`${id}-title`} className="text-base font-semibold text-content">
             {title}
           </h2>
@@ -76,9 +80,13 @@ export function Modal({
             </p>
           )}
         </div>
-        {children && <div className="px-5 py-4">{children}</div>}
+        {/* Only the body scrolls, so the title and actions stay reachable on a
+            short viewport — an on-screen keyboard leaves very little room. */}
+        {children && (
+          <div className="sd-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-4">{children}</div>
+        )}
         {footer && (
-          <div className="flex flex-col-reverse gap-2 border-t border-line px-5 py-4 sm:flex-row sm:justify-end">
+          <div className="flex shrink-0 flex-col-reverse gap-2 border-t border-line px-5 py-4 sm:flex-row sm:justify-end">
             {footer}
           </div>
         )}

@@ -213,6 +213,17 @@
   .sd-lanes {
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
+    /**
+     * `overflow-x: auto` scrolls the lanes correctly but still reports their
+     * full width into the document's scroll area, which let the whole page
+     * slide sideways ~970px on a phone. `contain: paint` is what actually
+     * stops that propagation; clipping ancestors does not.
+     *
+     * Scoped to the scrolling breakpoint: above `sm` the strip becomes a
+     * static grid, and containing it there would crop the card shadows and
+     * priority tabs that sit just outside each lane's edge.
+     */
+    contain: paint;
   }
   .sd-lanes::-webkit-scrollbar {
     display: none;
@@ -220,6 +231,7 @@
   @media (min-width: 640px) {
     .sd-lanes {
       overscroll-behavior-x: auto;
+      contain: none;
     }
   }
 }

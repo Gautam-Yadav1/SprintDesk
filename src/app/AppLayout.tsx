@@ -37,7 +37,9 @@ export function AppLayout() {
   }
 
   return (
-    <div className="min-h-dvh bg-surface">
+    // No background of its own — a solid fill here painted straight over the
+    // ruled paper on `body`, which is why the rules only showed in the gutter.
+    <div className="min-h-dvh">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-sm focus:text-white"
