@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sd-surface: 248 250 252;
+    --sd-surface-raised: 255 255 255;
+    --sd-surface-sunken: 241 245 249;
+    --sd-line: 226 232 240;
+    --sd-content: 15 23 42;
+    --sd-content-muted: 90 105 128;
+    color-scheme: light;
+  }
+
+  .dark {
+    --sd-surface: 12 17 28;
+    --sd-surface-raised: 22 29 44;
+    --sd-surface-sunken: 8 12 20;
+    --sd-line: 45 55 75;
+    --sd-content: 232 238 247;
+    --sd-content-muted: 154 167 189;
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-surface text-content;
+    font-family: 'Inter var', ui-sans-serif, system-ui, 'Segoe UI', Roboto,
+      Helvetica, Arial, sans-serif;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-surface;
+  }
+}
+
+@layer components {
+  .sd-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--sd-line)) transparent;
+  }
+  .sd-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .sd-scrollbar::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-line;
+  }
+
+  /**
+   * Drag activators must opt out of browser touch gestures. Without
+   * `touch-action: none` iOS Safari starts scrolling first, which makes the
+   * following `touchmove` events non-cancellable and the drag never sticks.
+   */
+  .sd-drag-handle {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  /** Mobile board lanes: swipeable strip that never rubber-bands the page. */
+  .sd-lanes {
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sd-lanes::-webkit-scrollbar {
+    display: none;
+  }
+  @media (min-width: 640px) {
+    .sd-lanes {
+      overscroll-behavior-x: auto;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
