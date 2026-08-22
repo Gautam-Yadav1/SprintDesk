@@ -1,0 +1,21 @@
+# Netlify build settings, kept in the repo so the deploy is reproducible
+# rather than dependent on values typed into the dashboard.
+
+[build]
+  command = "npm run build"
+  # Vite writes the built site here. Publishing the repo root instead serves
+  # the source index.html, whose `/src/main.tsx` the browser refuses to run.
+  publish = "dist"
+
+[build.environment]
+  # Vite 8 requires ^20.19 || >=22.12; pinned so a change to Netlify's
+  # default image cannot break the build.
+  NODE_VERSION = "22"
+
+# BrowserRouter owns /dashboard, /board and /analytics — there is no file
+# behind them, so every unmatched path has to fall through to the SPA shell.
+# Without this, a refresh or a shared deep link returns Netlify's 404.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
