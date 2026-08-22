@@ -1,3 +1,4 @@
+import { Logo } from '@/app/Logo'
 import { LoginForm } from '@/features/auth/components/LoginForm'
 
 export default function LoginPage() {
@@ -5,11 +6,7 @@ export default function LoginPage() {
     <div className="grid min-h-dvh place-items-center px-4 py-10">
       <main className="w-full max-w-sm space-y-6">
         <header className="space-y-2 text-center">
-          {/* The pin the notebook is tacked up with. */}
-          <span
-            className="mx-auto block h-3 w-3 rounded-full bg-brand-500 ring-4 ring-brand-500/20"
-            aria-hidden="true"
-          />
+          <Logo className="mx-auto h-11 w-auto" />
           <h1 className="font-display text-4xl font-bold text-content">
             Sign in to SprintDesk
           </h1>

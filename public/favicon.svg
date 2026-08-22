@@ -1,4 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="SprintDesk">
-  <rect width="32" height="32" rx="7" fill="#2547eb"/>
-  <path d="M11.6 21.4c1 .8 2.3 1.2 3.7 1.2 2.4 0 3.9-1.1 3.9-2.8 0-1.5-1-2.3-3.2-2.9l-1.4-.4c-2.6-.7-4-2.1-4-4.3 0-2.7 2.2-4.5 5.4-4.5 1.4 0 2.7.3 3.7 1l-.9 2.1c-.8-.5-1.8-.8-2.8-.8-1.9 0-3 .8-3 2.1 0 1.2.9 1.9 2.9 2.5l1.4.4c2.9.8 4.3 2.2 4.3 4.6 0 3-2.4 5-6.2 5-1.9 0-3.6-.5-4.8-1.4z" fill="#fff"/>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SprintDesk">
+  <!-- background square, soft paper tone -->
+  <rect width="64" height="64" rx="12" fill="#F5EFE1"/>
+
+  <!-- pinned index card, centered and slightly rotated -->
+  <g transform="translate(8,8) rotate(-6 24 24)">
+    <rect x="2" y="4" width="44" height="44" rx="2" fill="#FFFDF8" stroke="#E2D5B8" stroke-width="1.6"/>
+    <!-- sticky tab -->
+    <rect x="13" y="-4" width="15" height="11" fill="#B23A2E"/>
+    <!-- ruled lines -->
+    <line x1="10" y1="27" x2="38" y2="27" stroke="#E2D5B8" stroke-width="2" stroke-dasharray="3 3"/>
+    <line x1="10" y1="35" x2="30" y2="35" stroke="#E2D5B8" stroke-width="2" stroke-dasharray="3 3"/>
+    <!-- pin -->
+    <circle cx="20" cy="10" r="3" fill="#B23A2E"/>
+  </g>
 </svg>

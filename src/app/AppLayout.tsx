@@ -6,6 +6,7 @@ import { cn } from '@/lib/cn'
 import { signOut } from '@/features/auth/services/authSession'
 import { useAuthStore } from '@/features/auth/store/authStore'
 import { NotificationBell } from '@/features/notifications/components/NotificationBell'
+import { Logo } from './Logo'
 import { ThemeToggle } from './ThemeToggle'
 
 const NAV_ITEMS = [
@@ -51,19 +52,14 @@ export function AppLayout() {
         <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-6">
           {/* The wordmark is the way home, as it is in most apps. This layout
               only renders behind the auth gate, so it always has somewhere to go. */}
+          {/* The whole lockup rides at every width — the mark alone read as an
+              anonymous dot on a phone. */}
           <Link
             to="/dashboard"
-            className="flex h-9 shrink-0 items-center gap-2 rounded-md px-1 text-brand-500 transition-opacity hover:opacity-80"
+            aria-label="SprintDesk — go to dashboard"
+            className="flex shrink-0 items-center rounded-md transition-opacity hover:opacity-80"
           >
-            {/* The pin the notebook is tacked up with. */}
-            <span
-              className="h-2.5 w-2.5 shrink-0 rounded-full bg-brand-500 ring-2 ring-brand-500/25"
-              aria-hidden="true"
-            />
-            <span className="hidden font-display text-2xl font-bold leading-none sm:inline">
-              SprintDesk
-            </span>
-            <span className="sr-only sm:hidden">SprintDesk — go to dashboard</span>
+            <Logo className="h-8 w-auto sm:h-9" />
           </Link>
 
           <nav aria-label="Primary" className="ml-2 hidden items-center gap-1 sm:flex">
