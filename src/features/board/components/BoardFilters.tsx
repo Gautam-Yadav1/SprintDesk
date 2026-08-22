@@ -47,7 +47,7 @@ export function BoardFilters({
   return (
     <section
       aria-label="Board filters"
-      className="rounded-xl border border-line bg-surface-raised p-3"
+      className="fn-card rounded-md p-3"
     >
       {/*
         Every control in this bar is 40px tall and stretches to the row, so the

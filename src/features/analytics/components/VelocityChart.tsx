@@ -2,6 +2,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  LabelList,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -11,9 +12,19 @@ import { useChartTheme } from '../chartTheme'
 import type { VelocityRow } from '../hooks/useBoardAnalytics'
 import { ChartCard } from './ChartCard'
 
+/** Figures on a chart are typed, like every other number in the app. */
+const MONO = "'JetBrains Mono', ui-monospace, monospace"
+
+
 /** Completed tasks per sprint — one series, so the title carries identity. */
 export function VelocityChart({ data }: { data: VelocityRow[] }) {
   const theme = useChartTheme()
+  // Presentational only: names the peak bar for the margin note. No state, no
+  // fetching — it reads the same rows the chart is already rendering.
+  const best = data.reduce<VelocityRow | null>(
+    (peak, row) => (peak === null || row.completed > peak.completed ? row : peak),
+    null,
+  )
 
   return (
     <ChartCard
@@ -22,21 +33,27 @@ export function VelocityChart({ data }: { data: VelocityRow[] }) {
       isEmpty={data.length === 0}
       emptyMessage="No sprints have been loaded yet."
     >
-      <ResponsiveContainer width="100%" height={240}>
+      <div className="relative">
+        {best && (
+          <span className="fn-note absolute right-1 top-0 z-10 text-lg" aria-hidden="true">
+            best so far: {best.sprint} ↗
+          </span>
+        )}
+        <ResponsiveContainer width="100%" height={240}>
         <BarChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: -20 }} accessibilityLayer>
-          <CartesianGrid stroke={theme.grid} vertical={false} />
+          <CartesianGrid stroke={theme.grid} strokeDasharray="3 4" vertical={false} />
           <XAxis
             dataKey="sprint"
             tickLine={false}
-            axisLine={{ stroke: theme.grid }}
-            tick={{ fill: theme.axis, fontSize: 12 }}
+            axisLine={{ stroke: theme.text, strokeWidth: 1 }}
+            tick={{ fill: theme.axis, fontSize: 11, fontFamily: MONO }}
           />
           <YAxis
             allowDecimals={false}
             tickLine={false}
             axisLine={false}
             width={44}
-            tick={{ fill: theme.axis, fontSize: 12 }}
+            tick={{ fill: theme.axis, fontSize: 11, fontFamily: MONO }}
           />
           <Tooltip
             cursor={theme.tooltip.cursor}
@@ -52,12 +69,22 @@ export function VelocityChart({ data }: { data: VelocityRow[] }) {
             dataKey="completed"
             name="Completed"
             fill={theme.series}
-            radius={[4, 4, 0, 0]}
-            maxBarSize={56}
+            radius={[2, 2, 0, 0]}
+            maxBarSize={48}
             isAnimationActive={theme.animate}
-          />
+          >
+            <LabelList
+              dataKey="completed"
+              position="top"
+              offset={8}
+              fill={theme.text}
+              fontSize={11}
+              fontFamily={MONO}
+            />
+          </Bar>
         </BarChart>
-      </ResponsiveContainer>
+        </ResponsiveContainer>
+      </div>
     </ChartCard>
   )
 }

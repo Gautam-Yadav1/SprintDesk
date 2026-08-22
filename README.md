@@ -100,6 +100,26 @@ delete behind a confirmation dialog; live column counts.
 trend, all derived live from the board arrangement plus the task entities, fully
 responsive, with entry animations that respect `prefers-reduced-motion`.
 
+**Visual language — "Field Notes."** A warm analog notebook: the page is ruled
+paper (a line every 34px), tasks are index cards on card stock with a hard
+offset shadow and a colour-coded sticky tab — red high, kraft medium, green low
+— and each card is pinned at a degree and a half, straightening and lifting
+when you reach for it. Board columns are corkboard lanes; dashboard stats are
+tags torn from the pad rather than stat panels. Three faces each have one job:
+Caveat is the handwriting and appears only on greetings, section heads, the
+wordmark and stat figures; Source Serif 4 carries body and card copy; JetBrains
+Mono carries every label, date, badge and table header. Tokens live in
+`:root` in `src/index.css` under the names the design spec uses, aliased to the
+Tailwind `surface` / `content` / `line` scales so existing markup picked up the
+theme without learning new class names.
+
+One token was adjusted: the spec's `--muted: #8C7A62` measures 4.07:1 on card
+stock and 3.27:1 on a lane, under the 4.5:1 this brief requires for body text.
+It is darkened to `#746350`, the minimum that clears AA on the tighter ground.
+The kraft priority tab sits at 2.21:1 against card stock and is left as
+specified: it is `aria-hidden` decoration, and priority is carried in text by
+the badge beside it.
+
 **Design system** — Button, Input/Textarea, Select, Modal, Toast, DataTable,
 Skeleton, plus Badge, Avatar and Spinner, all hand-built with Tailwind and used
 throughout the features rather than re-styled per screen.

@@ -32,7 +32,7 @@ export function ToastViewport() {
           key={toast.id}
           role={toast.variant === 'error' ? 'alert' : 'status'}
           className={cn(
-            'pointer-events-auto w-full max-w-sm animate-slide-up rounded-lg border border-l-4 border-line bg-surface-raised p-3 shadow-lg',
+            'pointer-events-auto w-full max-w-sm animate-slide-up rounded-md border border-l-4 border-line bg-[var(--card)] p-3 shadow-lg',
             VARIANT_STYLES[toast.variant],
           )}
         >

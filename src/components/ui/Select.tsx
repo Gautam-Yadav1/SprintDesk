@@ -124,7 +124,7 @@ export function Select<T extends string | number>({
       <label
         htmlFor={id}
         className={cn(
-          'block text-sm font-medium text-content',
+          'sd-label block text-content-muted',
           hideLabel ? 'sr-only' : 'mb-1.5',
         )}
       >
@@ -144,7 +144,7 @@ export function Select<T extends string | number>({
           onClick={() => (open ? close() : openList())}
           onKeyDown={onKeyDown}
           className={cn(
-            'flex h-10 w-full items-center justify-between gap-2 rounded-lg border border-line bg-surface-raised px-3 text-sm text-content transition-colors',
+            'flex h-10 w-full items-center justify-between gap-2 rounded-md border border-line bg-[var(--card)] px-3 text-sm text-content transition-colors',
             'hover:border-brand-400 disabled:cursor-not-allowed disabled:opacity-60',
           )}
         >
@@ -169,7 +169,7 @@ export function Select<T extends string | number>({
             role="listbox"
             aria-label={label}
             tabIndex={-1}
-            className="sd-scrollbar absolute z-40 mt-1 max-h-60 w-full animate-fade-in overflow-auto rounded-lg border border-line bg-surface-raised p-1 shadow-lg"
+            className="sd-scrollbar absolute z-40 mt-1 max-h-60 w-full animate-fade-in overflow-auto rounded-md border border-line bg-[var(--card)] p-1 shadow-lg"
           >
             {options.map((option, index) => {
               const isSelected = option.value === value
@@ -184,14 +184,14 @@ export function Select<T extends string | number>({
                   onClick={() => commit(index)}
                   className={cn(
                     'flex cursor-pointer items-center gap-2 rounded-md px-2.5 py-2 text-sm text-content',
-                    index === activeIndex && 'bg-brand-50 dark:bg-brand-900/40',
+                    index === activeIndex && 'bg-brand-500/10',
                     isSelected && 'font-medium',
                   )}
                 >
                   {option.adornment}
                   <span className="truncate">{option.label}</span>
                   {isSelected && (
-                    <svg className="ml-auto h-4 w-4 text-brand-600 dark:text-brand-300" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <svg className="ml-auto h-4 w-4 text-brand-500" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                       <path d="m5 10 3.5 3.5L15 6.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   )}

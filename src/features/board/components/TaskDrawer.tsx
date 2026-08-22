@@ -129,9 +129,9 @@ export function TaskDrawer({
         aria-modal="true"
         aria-label={`Task details: ${task.title}`}
         tabIndex={-1}
-        className="sd-scrollbar relative flex h-dvh w-full max-w-md animate-slide-in-right flex-col overflow-y-auto border-l border-line bg-surface-raised shadow-2xl"
+        className="sd-scrollbar relative flex h-dvh w-full max-w-md animate-slide-in-right flex-col overflow-y-auto border-l border-line bg-[var(--card)] shadow-2xl"
       >
-        <header className="sticky top-0 z-10 flex items-start gap-2 border-b border-line bg-surface-raised px-4 py-3">
+        <header className="sticky top-0 z-10 flex items-start gap-2 border-b-2 border-line bg-[var(--card)] px-4 py-3">
           <div className="min-w-0 flex-1">
             <p className="text-xs uppercase tracking-wide text-content-muted">
               {sprint?.name ?? 'No sprint'} &middot; {columnLabel}

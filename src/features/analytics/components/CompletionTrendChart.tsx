@@ -44,11 +44,11 @@ export function CompletionTrendChart({ data, action, filtered }: CompletionTrend
               <stop offset="100%" stopColor={theme.series} stopOpacity={0.02} />
             </linearGradient>
           </defs>
-          <CartesianGrid stroke={theme.grid} vertical={false} />
+          <CartesianGrid stroke={theme.grid} strokeDasharray="3 4" vertical={false} />
           <XAxis
             dataKey="label"
             tickLine={false}
-            axisLine={{ stroke: theme.grid }}
+            axisLine={{ stroke: theme.text, strokeWidth: 1 }}
             tick={{ fill: theme.axis, fontSize: 11 }}
             minTickGap={24}
           />
@@ -75,7 +75,7 @@ export function CompletionTrendChart({ data, action, filtered }: CompletionTrend
             name="Completed"
             stroke={theme.series}
             strokeWidth={2}
-            fill="url(#trend-fill)"
+            fill="none"
             dot={false}
             activeDot={{ r: 4, strokeWidth: 2, stroke: theme.surface }}
             isAnimationActive={theme.animate}

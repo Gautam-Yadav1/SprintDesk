@@ -32,17 +32,20 @@ export function BoardColumn({
     <section
       aria-label={`${label} column`}
       className={cn(
-        'flex min-w-0 flex-col rounded-xl border border-line bg-surface-sunken/60 transition-colors',
+        // A corkboard lane: tinted board stock holding the pinned cards.
+        'fn-lane flex min-w-0 flex-col rounded-md transition-colors',
         // One near-full-width lane per swipe on phones, a grid cell above it.
         'w-[85vw] max-w-[21rem] shrink-0 snap-start',
         'sm:w-auto sm:max-w-none sm:shrink',
         isOver && 'border-brand-400 dark:border-brand-500',
       )}
     >
-      <h2 className="flex h-11 shrink-0 items-center justify-between gap-2 px-3 text-sm font-semibold text-content">
-        <span className="truncate">{label}</span>
-        <span className="shrink-0 rounded-full bg-surface-raised px-2 py-0.5 text-xs font-medium tabular-nums text-content-muted">
-          {filtered ? `${tasks.length} of ${totalCount}` : totalCount}
+      {/* Lane heading: the name written by hand, the count typed, ruled off
+          underneath with a dashed line. */}
+      <h2 className="mx-3 flex h-12 shrink-0 items-center justify-between gap-2 border-b border-dashed border-line text-content">
+        <span className="truncate font-display text-xl font-bold leading-none">{label}</span>
+        <span className="sd-figure shrink-0 text-xs text-content-muted">
+          {filtered ? `${tasks.length}/${totalCount}` : totalCount}
           <span className="sr-only"> tasks</span>
         </span>
       </h2>
@@ -50,12 +53,12 @@ export function BoardColumn({
       <div
         ref={setNodeRef}
         className={cn(
-          'flex-1 rounded-b-xl px-2 pb-2 transition-colors',
-          isOver && 'bg-brand-50/70 dark:bg-brand-900/20',
+          'flex-1 rounded-b-md px-3 pb-3 pt-4 transition-colors',
+          isOver && 'bg-brand-500/[0.08]',
         )}
       >
         <SortableContext items={tasks.map((task) => task.id)} strategy={verticalListSortingStrategy}>
-          <ul className="flex min-h-[4.5rem] flex-col gap-2">
+          <ul className="fn-pinned flex min-h-[4.5rem] flex-col gap-[18px]">
             {tasks.map((task) => (
               <TaskCard
                 key={task.id}
@@ -65,7 +68,7 @@ export function BoardColumn({
               />
             ))}
             {tasks.length === 0 && (
-              <li className="grid h-[4.5rem] place-items-center rounded-lg border border-dashed border-line text-xs text-content-muted">
+              <li className="sd-label grid h-[4.5rem] place-items-center rounded-md border border-dashed border-line text-content-muted">
                 {filtered ? 'No matching tasks' : 'Drop tasks here'}
               </li>
             )}

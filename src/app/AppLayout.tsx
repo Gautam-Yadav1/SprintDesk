@@ -16,11 +16,12 @@ const NAV_ITEMS = [
 
 function navClasses({ isActive }: { isActive: boolean }) {
   return cn(
-    // Same 36px height as the header's icon buttons, so the two rows agree.
-    'flex h-9 items-center justify-center rounded-lg px-3 text-sm font-medium transition-colors',
+    // Typed section labels. The active one is underscored in red rather than
+    // filled — a pen stroke under the heading, not a highlighted pill.
+    'sd-label flex h-9 items-center justify-center border-b-2 px-3 transition-colors',
     isActive
-      ? 'bg-brand-50 text-brand-700 dark:bg-brand-900/50 dark:text-brand-200'
-      : 'text-content-muted hover:bg-surface-sunken hover:text-content',
+      ? 'border-brand-500 text-brand-500'
+      : 'border-transparent text-content-muted hover:text-content',
   )
 }
 
@@ -44,21 +45,22 @@ export function AppLayout() {
         Skip to main content
       </a>
 
-      <header className="sticky top-0 z-30 border-b border-line bg-surface-raised/90 backdrop-blur">
+      <header className="sd-rule sticky top-0 z-30 bg-[var(--card)]">
         <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-6">
           {/* The wordmark is the way home, as it is in most apps. This layout
               only renders behind the auth gate, so it always has somewhere to go. */}
           <Link
             to="/dashboard"
-            className="flex h-9 shrink-0 items-center gap-2 rounded-lg px-1 font-semibold tracking-tight text-content transition-colors hover:text-brand-700 dark:hover:text-brand-300"
+            className="flex h-9 shrink-0 items-center gap-2 rounded-md px-1 text-brand-500 transition-opacity hover:opacity-80"
           >
+            {/* The pin the notebook is tacked up with. */}
             <span
-              className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-brand-600 text-xs font-bold text-white"
+              className="h-2.5 w-2.5 shrink-0 rounded-full bg-brand-500 ring-2 ring-brand-500/25"
               aria-hidden="true"
-            >
-              SD
+            />
+            <span className="hidden font-display text-2xl font-bold leading-none sm:inline">
+              SprintDesk
             </span>
-            <span className="hidden sm:inline">SprintDesk</span>
             <span className="sr-only sm:hidden">SprintDesk — go to dashboard</span>
           </Link>
 
@@ -89,8 +91,8 @@ export function AppLayout() {
               className={cn(
                 // A 36px square on mobile, matching the bell and theme toggle.
                 'ml-1 h-9 w-9 shrink-0 justify-center gap-0 px-0 text-content-muted',
-                'hover:bg-red-50 hover:text-red-600 active:bg-red-100',
-                'dark:hover:bg-red-950/40 dark:hover:text-red-400 dark:active:bg-red-950/60',
+                'hover:bg-brand-500/10 hover:text-brand-500 active:bg-brand-500/15',
+                'dark:hover:bg-brand-500/15 dark:hover:text-brand-400',
                 'sm:w-auto sm:gap-1.5 sm:px-3',
               )}
               leftIcon={
@@ -120,7 +122,7 @@ export function AppLayout() {
         {/* The three destinations split the width evenly rather than bunching left. */}
         <nav
           aria-label="Primary mobile"
-          className="grid grid-cols-3 gap-1 border-t border-line px-3 py-1.5 sm:hidden"
+          className="grid grid-cols-3 gap-1 border-t border-dashed border-line px-3 pt-1.5 sm:hidden"
         >
           {NAV_ITEMS.map((item) => (
             <NavLink key={item.to} to={item.to} className={navClasses}>

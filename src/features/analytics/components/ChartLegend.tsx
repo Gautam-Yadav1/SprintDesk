@@ -23,8 +23,9 @@ export function ChartLegend({ items, layout = 'row', className }: ChartLegendPro
     <ul
       data-chart-legend
       className={cn(
-        'text-sm',
-        layout === 'row' ? 'flex flex-wrap gap-x-4 gap-y-1' : 'w-full space-y-1.5',
+        // Typed legend: label left, count and share right-aligned.
+        'sd-label',
+        layout === 'row' ? 'flex flex-wrap gap-x-4 gap-y-1' : 'w-full space-y-2',
         className,
       )}
     >
@@ -38,7 +39,7 @@ export function ChartLegend({ items, layout = 'row', className }: ChartLegendPro
           className="flex items-center gap-2"
         >
           <span
-            className="h-2.5 w-2.5 shrink-0 rounded-sm"
+            className="h-2.5 w-2.5 shrink-0 rounded-[1px]"
             style={{ background: item.color }}
             aria-hidden="true"
           />
@@ -47,7 +48,7 @@ export function ChartLegend({ items, layout = 'row', className }: ChartLegendPro
             <span className="ml-auto font-medium tabular-nums text-content">{item.value}</span>
           )}
           {item.share && (
-            <span className="w-12 text-right text-xs tabular-nums text-content-muted">
+            <span className="w-12 text-right sd-label tabular-nums text-content-muted">
               {item.share}
             </span>
           )}

@@ -62,7 +62,7 @@ export function Modal({
         aria-describedby={description ? `${id}-description` : undefined}
         tabIndex={-1}
         className={cn(
-          'relative w-full animate-slide-up rounded-xl border border-line bg-surface-raised shadow-2xl',
+          'relative w-full animate-slide-up rounded-md border border-line bg-[var(--card)] shadow-2xl',
           size === 'sm' ? 'max-w-md' : 'max-w-2xl',
         )}
       >

@@ -28,7 +28,7 @@ export function NotificationPanel({ labelledBy, memberId }: NotificationPanelPro
     <div
       role="region"
       aria-labelledby={labelledBy}
-      className="flex max-h-[70vh] flex-col overflow-hidden rounded-xl border border-line bg-surface-raised shadow-2xl"
+      className="fn-card flex max-h-[70vh] flex-col overflow-hidden rounded-md shadow-2xl"
     >
       <div className="flex items-center justify-between gap-2 border-b border-line px-3 py-2">
         <p className="text-sm font-semibold text-content">

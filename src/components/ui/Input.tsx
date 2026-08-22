@@ -17,12 +17,12 @@ interface FieldShellProps {
 }
 
 const CONTROL_CLASSES =
-  'w-full rounded-lg border bg-surface-raised px-3 py-2 text-sm text-content placeholder:text-content-muted/70 transition-colors disabled:cursor-not-allowed disabled:opacity-60'
+  'w-full rounded-md border bg-[var(--card)] px-3 py-2 text-sm text-content placeholder:text-content-muted/70 transition-colors disabled:cursor-not-allowed disabled:opacity-60'
 
 function FieldShell({ id, label, required, helperText, error, children }: FieldShellProps) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-medium text-content">
+      <label htmlFor={id} className="sd-label block text-content-muted">
         {label}
         {required && (
           <span className="ml-0.5 text-red-500" aria-hidden="true">

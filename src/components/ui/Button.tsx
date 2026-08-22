@@ -16,18 +16,20 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: 'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 shadow-sm',
+  // The inset hairline gives the filled variants a printed edge rather than
+  // the flat block of colour a default button uses.
+  primary: 'bg-brand-500 text-[#fffdf8] shadow-sm hover:bg-brand-600 active:bg-brand-700',
   secondary:
-    'bg-surface-raised text-content border border-line hover:bg-surface-sunken active:bg-surface-sunken',
-  ghost: 'text-content-muted hover:bg-surface-sunken hover:text-content',
-  danger: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm',
+    'border border-line bg-[var(--card)] text-content shadow-sm hover:border-brand-300 active:translate-y-px',
+  ghost: 'text-content-muted hover:bg-content/[0.06] hover:text-content',
+  danger: 'bg-brand-700 text-[#fffdf8] shadow-sm hover:bg-brand-800 active:bg-brand-900',
 }
 
 const SIZES: Record<ButtonSize, string> = {
-  sm: 'h-8 px-3 text-xs gap-1.5 rounded-md',
-  md: 'h-10 px-4 text-sm gap-2 rounded-lg',
-  lg: 'h-12 px-6 text-base gap-2 rounded-lg',
-  icon: 'h-9 w-9 rounded-lg',
+  sm: 'h-8 px-3 gap-1.5 rounded-md',
+  md: 'h-10 px-4 gap-2 rounded-md text-[11px]',
+  lg: 'h-12 px-6 gap-2 rounded-md text-xs',
+  icon: 'h-9 w-9 rounded-md',
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -53,7 +55,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       disabled={disabled || loading}
       aria-busy={loading || undefined}
       className={cn(
-        'inline-flex select-none items-center justify-center font-medium transition-colors',
+        // Buttons are typed, not written: mono, uppercase, tracked out.
+        'sd-label inline-flex select-none items-center justify-center transition-all',
         'disabled:cursor-not-allowed disabled:opacity-50',
         VARIANTS[variant],
         SIZES[size],

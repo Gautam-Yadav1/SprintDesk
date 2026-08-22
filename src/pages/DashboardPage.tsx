@@ -33,20 +33,22 @@ function StatCard({
   loading: boolean
 }) {
   return (
-    <div className="rounded-xl border border-line bg-surface-raised p-4">
-      <p className="text-xs font-medium uppercase tracking-wide text-content-muted">{label}</p>
+    // A tag torn from the notebook, not a stat panel: the figure written by
+    // hand, the label typed underneath.
+    <div className="fn-card rounded-md px-3 py-2.5">
       {loading ? (
-        <Skeleton className="mt-2 h-8 w-12" />
+        <Skeleton className="h-8 w-10" />
       ) : (
         <p
           className={cn(
-            'mt-1 text-2xl font-semibold tabular-nums',
-            tone === 'danger' && value > 0 ? 'text-red-600 dark:text-red-400' : 'text-content',
+            'font-display text-[2rem] font-bold leading-none tabular-nums',
+            tone === 'danger' && value > 0 ? 'text-brand-500' : 'text-content',
           )}
         >
           {value}
         </p>
       )}
+      <p className="sd-label mt-1.5 text-content-muted">{label}</p>
     </div>
   )
 }
@@ -84,7 +86,7 @@ export default function DashboardPage() {
         cell: (task) => (
           <Link
             to="/board"
-            className="rounded font-medium text-content hover:text-brand-700 dark:hover:text-brand-300"
+            className="rounded font-semibold text-content hover:text-brand-500"
           >
             {task.title}
           </Link>
@@ -135,7 +137,7 @@ export default function DashboardPage() {
             <span
               className={cn(
                 'whitespace-nowrap',
-                overdue ? 'font-medium text-red-600 dark:text-red-400' : 'text-content-muted',
+                overdue ? 'font-bold text-brand-500' : 'text-content-muted',
               )}
             >
               {formatDate(task.dueDate)}
@@ -151,19 +153,19 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-xl font-semibold tracking-tight text-content sm:text-2xl">
+        <h1 className="font-display text-4xl font-bold leading-tight text-content sm:text-5xl">
           {firstName ? `Welcome back, ${firstName}` : 'Dashboard'}
         </h1>
-        <p className="text-sm text-content-muted">
+        <p className="mt-1 text-sm text-content-muted">
           A snapshot of the current sprint. Open the{' '}
-          <Link to="/board" className="rounded font-medium text-brand-700 hover:underline dark:text-brand-300">
+          <Link to="/board" className="rounded font-semibold text-brand-500 underline decoration-dotted underline-offset-2">
             board
           </Link>{' '}
           to move work along.
         </p>
       </header>
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-[18px] lg:grid-cols-4">
         <StatCard label="Total tasks" value={summary.total} loading={tasksQuery.isPending} />
         <StatCard label="In progress" value={summary.inProgress} loading={tasksQuery.isPending} />
         <StatCard label="Completed" value={summary.done} loading={tasksQuery.isPending} />
@@ -177,12 +179,12 @@ export default function DashboardPage() {
 
       <section className="space-y-3" aria-labelledby="tasks-heading">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 id="tasks-heading" className="text-base font-semibold text-content">
+          <h2 id="tasks-heading" className="font-display text-2xl font-bold text-content">
             Due soonest
           </h2>
           <Link
             to="/board"
-            className="rounded text-sm font-medium text-brand-700 hover:underline dark:text-brand-300"
+            className="sd-label rounded text-brand-500 underline decoration-dotted underline-offset-4"
           >
             All {summary.total} tasks on the board
           </Link>

@@ -74,11 +74,11 @@ export function DataTable<Row>({
   }
 
   return (
-    <div className="sd-scrollbar overflow-x-auto rounded-xl border border-line bg-surface-raised">
+    <div className="sd-scrollbar fn-card overflow-x-auto rounded-md">
       <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
         <caption className="sr-only">{caption}</caption>
         <thead>
-          <tr className="border-b border-line">
+          <tr className="border-b-2 border-line">
             {columns.map((column) => {
               const isSorted = sort?.columnId === column.id
               return (
@@ -95,7 +95,7 @@ export function DataTable<Row>({
                       : undefined
                   }
                   className={cn(
-                    'px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-content-muted',
+                    'sd-label px-4 py-3 text-content-muted',
                     column.hideOnMobile && 'hidden sm:table-cell',
                     column.className,
                   )}
@@ -108,7 +108,7 @@ export function DataTable<Row>({
                     >
                       {column.header}
                       <svg
-                        className={cn('h-3 w-3', isSorted ? 'text-brand-600 dark:text-brand-300' : 'text-content-muted/50')}
+                        className={cn('h-3 w-3', isSorted ? 'text-brand-500' : 'text-content-muted/50')}
                         viewBox="0 0 12 12"
                         fill="none"
                         aria-hidden="true"

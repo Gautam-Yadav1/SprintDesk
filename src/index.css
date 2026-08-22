@@ -3,23 +3,81 @@
 @tailwind utilities;
 
 @layer base {
+  /**
+   * "Field Notes" — a warm analog notebook. The palette is declared once here
+   * under the names the design spec uses; the `--sd-*` triplets alias the same
+   * values for Tailwind's themed `surface` / `content` / `line` utilities, so
+   * existing markup picks up the theme without learning new class names.
+   */
   :root {
-    --sd-surface: 248 250 252;
-    --sd-surface-raised: 255 255 255;
-    --sd-surface-sunken: 241 245 249;
-    --sd-line: 226 232 240;
-    --sd-content: 15 23 42;
-    --sd-content-muted: 90 105 128;
+    --bg: #f5efe1;
+    --bg-line: #e6dab8;
+    --card: #fffdf8;
+    --card-line: #e2d5b8;
+    --red: #b23a2e;
+    --green: #3c6e47;
+    --kraft: #c9a876;
+    --blue: #4a6c8c;
+    --ink: #2b2620;
+    /* The spec's #8C7A62 measures 4.07:1 on card stock and 3.27:1 on a lane,
+       under the 4.5:1 this app's brief requires for body text. Darkened the
+       minimum needed to clear AA on the tighter of the two grounds. */
+    --muted: #746350;
+    --shadow: rgb(43 38 32 / 0.12);
+
+    /* Priority tab fills. Deeper than the base kraft/green tokens, which are
+       too pale to read as a marker against card stock. */
+    --tab-high: #b23a2e;
+    --tab-medium: #8f6f3e;
+    --tab-low: #3c6e47;
+
+    --fn-kraft: 201 168 118;
+    --fn-green: 60 110 71;
+    --fn-blue: 74 108 140;
+    --fn-shadow: var(--shadow);
+
+    --sd-surface: 245 239 225;
+    --sd-surface-raised: 255 253 248;
+    --sd-surface-sunken: 239 228 200;
+    --sd-line: 226 213 184;
+    --sd-content: 43 38 32;
+    --sd-content-muted: 116 99 80;
     color-scheme: light;
   }
 
+  /**
+   * The same notebook under a desk lamp. The spec only defines the daylight
+   * palette, but the theme toggle is existing behaviour, so the ramp is
+   * carried over rather than dropped: kraft board, warm ink, and the accents
+   * lifted just enough to hold contrast on a dark ground.
+   */
   .dark {
-    --sd-surface: 12 17 28;
-    --sd-surface-raised: 22 29 44;
-    --sd-surface-sunken: 8 12 20;
-    --sd-line: 45 55 75;
-    --sd-content: 232 238 247;
-    --sd-content-muted: 154 167 189;
+    --bg: #241f19;
+    --bg-line: #2e2820;
+    --card: #2e2820;
+    --card-line: #453c30;
+    --red: #e07a68;
+    --green: #7fb08c;
+    --kraft: #d4b585;
+    --blue: #8fb0cd;
+    --ink: #f2ebdd;
+    --muted: #b0a086;
+    --shadow: rgb(0 0 0 / 0.45);
+
+    --tab-high: #c86a5a;
+    --tab-medium: #c9a876;
+    --tab-low: #84ab90;
+
+    --fn-kraft: 212 181 133;
+    --fn-green: 127 176 140;
+    --fn-blue: 143 176 205;
+
+    --sd-surface: 36 31 25;
+    --sd-surface-raised: 46 40 32;
+    --sd-surface-sunken: 30 26 21;
+    --sd-line: 69 60 48;
+    --sd-content: 242 235 221;
+    --sd-content-muted: 176 160 134;
     color-scheme: dark;
   }
 
@@ -31,18 +89,102 @@
     @apply antialiased;
   }
 
+  /* Ruled notebook paper, one line every 34px. */
   body {
-    @apply bg-surface text-content;
-    font-family: 'Inter var', ui-sans-serif, system-ui, 'Segoe UI', Roboto,
-      Helvetica, Arial, sans-serif;
+    @apply font-sans text-content;
+    background-color: var(--bg);
+    background-image: repeating-linear-gradient(
+      var(--bg),
+      var(--bg) 33px,
+      var(--bg-line) 34px
+    );
   }
 
+  h1 {
+    @apply font-display;
+    letter-spacing: 0;
+  }
+
+  /* Focus is the accent red, per the spec — restyled, never removed. */
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-surface;
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2;
+    --tw-ring-offset-color: var(--card);
   }
 }
 
 @layer components {
+  /** Every small label, badge, nav link and table header. */
+  .sd-label {
+    @apply font-mono text-[10px] font-medium uppercase;
+    letter-spacing: 0.09em;
+  }
+
+  /** Every figure that can change: aligned columns, no digit jitter. */
+  .sd-figure {
+    @apply font-mono tabular-nums;
+    font-feature-settings: 'zero' 1;
+  }
+
+  /** The solid 2px ink line under the nav. */
+  .sd-rule {
+    border-bottom: 2px solid var(--ink);
+  }
+
+  /**
+   * An index card: paper stock, hairline edge, and a hard offset shadow with
+   * no blur — the giveaway that it is a physical card lying on a desk.
+   */
+  .fn-card {
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    box-shadow: 3px 4px 0 var(--shadow);
+    transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+  }
+
+  /**
+   * Pinned by hand: cards alternate a degree and a half either way, and
+   * straighten and lift when you reach for one. The tilt lives on an inner
+   * wrapper so it never fights the drag transform dnd-kit writes on the item.
+   */
+  .fn-pinned > li:nth-child(odd) .fn-card {
+    transform: rotate(-1.5deg);
+  }
+  .fn-pinned > li:nth-child(even) .fn-card {
+    transform: rotate(1.5deg);
+  }
+  .fn-pinned > li .fn-card:hover,
+  .fn-pinned > li .fn-card:focus-within {
+    transform: translateY(-2px) rotate(0deg);
+    box-shadow: 5px 7px 0 var(--shadow);
+  }
+
+  /**
+   * The sticky tab that laps over a card's top edge. It carries no border of
+   * its own — the fill is the tab. An outline here read as an empty rectangle
+   * whenever the fill failed, which is exactly how it should not fail.
+   */
+  .fn-tab {
+    position: absolute;
+    top: -7px;
+    left: 14px;
+    width: 34px;
+    height: 8px;
+    border-radius: 2px 2px 0 0;
+  }
+
+  /** A corkboard lane holding pinned cards. */
+  .fn-lane {
+    background: rgb(var(--sd-surface-sunken));
+    border: 1px solid var(--card-line);
+  }
+
+  /** Handwritten marginalia — the annotation on a chart. */
+  .fn-note {
+    @apply font-display text-brand-500;
+    transform: rotate(-4deg);
+    line-height: 1;
+  }
+
   .sd-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: rgb(var(--sd-line)) transparent;
@@ -80,6 +222,25 @@
       overscroll-behavior-x: auto;
     }
   }
+}
+
+/**
+ * Priority tab fills.
+ *
+ * These live here rather than in the Tailwind config so the tab is one concept
+ * in one file — geometry and colour together — and, deliberately, outside any
+ * `@layer`, so they survive both Tailwind's purge and a build config the dev
+ * server has not reloaded. A tab that fails to a wrong colour is a bug; a tab
+ * that fails to invisible is the same bug wearing a disguise.
+ */
+.fn-tab--high {
+  background: var(--tab-high);
+}
+.fn-tab--medium {
+  background: var(--tab-medium);
+}
+.fn-tab--low {
+  background: var(--tab-low);
 }
 
 @media (prefers-reduced-motion: reduce) {

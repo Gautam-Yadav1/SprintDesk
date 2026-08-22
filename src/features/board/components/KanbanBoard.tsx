@@ -208,7 +208,7 @@ export function KanbanBoard({ tasks, userMap, visibleIds, onOpenTask }: KanbanBo
         {activeTask && (
           // Full width of the overlay wrapper, which dnd-kit sizes from the
           // card being dragged — so the card under the finger is the card.
-          <div className="w-full cursor-grabbing rounded-xl border border-brand-400 bg-surface-raised p-3 shadow-2xl ring-1 ring-brand-500/20">
+          <div className="fn-card w-full cursor-grabbing rounded-md border-brand-400 p-3 shadow-2xl">
             <TaskCardContent
               task={activeTask}
               assignee={activeTask.assigneeId ? userMap.get(activeTask.assigneeId) : undefined}

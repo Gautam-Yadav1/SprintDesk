@@ -26,7 +26,7 @@ function BoardSkeleton() {
       {Array.from({ length: 4 }, (_, column) => (
         <div
           key={column}
-          className="w-[85vw] max-w-[21rem] shrink-0 space-y-2 rounded-xl border border-line bg-surface-sunken/60 p-2 sm:w-auto sm:max-w-none sm:shrink"
+          className="fn-lane w-[85vw] max-w-[21rem] shrink-0 space-y-2 rounded-md p-3 sm:w-auto sm:max-w-none sm:shrink"
         >
           <Skeleton className="h-6 w-28" />
           {Array.from({ length: 3 }, (_, card) => (
@@ -89,7 +89,7 @@ export default function BoardPage() {
     <div className="space-y-5">
       <header className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
-          <h1 className="text-xl font-semibold tracking-tight text-content sm:text-2xl">
+          <h1 className="font-display text-4xl font-bold leading-tight text-content sm:text-5xl">
             Sprint board
           </h1>
           <p className="text-sm text-content-muted">
@@ -128,7 +128,7 @@ export default function BoardPage() {
       {tasksQuery.isPending ? (
         <BoardSkeleton />
       ) : tasksQuery.isError ? (
-        <div className="rounded-xl border border-line bg-surface-raised p-8 text-center">
+        <div className="fn-card rounded-md p-8 text-center">
           <p className="text-sm font-medium text-content">The board could not be loaded.</p>
           <p className="mt-1 text-sm text-content-muted">
             The task service did not respond. Nothing has been lost.

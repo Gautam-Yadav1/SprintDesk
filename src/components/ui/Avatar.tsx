@@ -37,7 +37,7 @@ export function Avatar({ name, src, size = 'sm', decorative, className }: Avatar
   if (!src) {
     return (
       <span
-        className={cn(shared, 'grid place-items-center bg-brand-100 font-semibold text-brand-800 dark:bg-brand-900 dark:text-brand-100')}
+        className={cn(shared, 'grid place-items-center bg-kraft/30 font-mono font-semibold text-content')}
         role={decorative ? undefined : 'img'}
         aria-label={decorative ? undefined : name}
         aria-hidden={decorative || undefined}

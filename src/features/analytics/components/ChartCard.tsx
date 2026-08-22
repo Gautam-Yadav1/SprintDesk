@@ -26,18 +26,20 @@ export function ChartCard({
   return (
     <figure
       data-chart-export={title}
-      className="flex min-w-0 flex-col rounded-xl border border-line bg-surface-raised p-4"
+      className="fn-card relative flex min-w-0 flex-col rounded-md p-4"
     >
       <figcaption className="mb-3 flex flex-wrap items-start justify-between gap-2">
         <span className="min-w-0">
-          <span className="block text-sm font-semibold text-content">{title}</span>
+          <span className="block font-display text-2xl font-bold leading-tight text-content">
+            {title}
+          </span>
           <span className="block text-xs text-content-muted">{description}</span>
         </span>
         {action}
       </figcaption>
 
       {isEmpty ? (
-        <p className="grid flex-1 place-items-center rounded-lg border border-dashed border-line px-4 py-10 text-center text-sm text-content-muted">
+        <p className="grid flex-1 place-items-center rounded-md border border-dashed border-line px-4 py-10 text-center text-sm text-content-muted">
           {emptyMessage}
         </p>
       ) : (

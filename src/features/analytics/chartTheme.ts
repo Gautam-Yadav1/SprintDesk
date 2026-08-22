@@ -14,32 +14,33 @@ import type { TaskPriority, TaskStatus } from '@/types'
  */
 const COLUMN_COLORS: Record<'light' | 'dark', Record<TaskStatus, string>> = {
   light: {
-    backlog: '#2a78d6',
-    'in-progress': '#eda100',
-    review: '#4a3aa7',
-    done: '#1baf7a',
+    backlog: '#4a6c8c',
+    'in-progress': '#c9a876',
+    review: '#b23a2e',
+    done: '#3c6e47',
   },
   dark: {
-    backlog: '#3987e5',
-    'in-progress': '#c98500',
-    review: '#9085e9',
-    done: '#199e70',
+    backlog: '#8fb0cd',
+    'in-progress': '#d4b585',
+    review: '#e07a68',
+    done: '#7fb08c',
   },
 }
 
 const PRIORITY_COLORS: Record<'light' | 'dark', Record<TaskPriority, string>> = {
-  light: { low: '#86b6ef', medium: '#2a78d6', high: '#104281' },
-  dark: { low: '#184f95', medium: '#3987e5', high: '#9ec5f4' },
+  light: { low: '#da9c91', medium: '#c86a5a', high: '#b23a2e' },
+  dark: { low: '#7f2820', medium: '#c86a5a', high: '#e9c3bc' },
 }
 
 const SERIES: Record<'light' | 'dark', string> = {
-  light: '#2a78d6',
-  dark: '#3987e5',
+  light: '#b23a2e',
+  dark: '#e07a68',
 }
 
+/** Matches the Field Notes tokens in `index.css`, so charts sit on the card. */
 const INK = {
-  light: { axis: '#5a6980', grid: '#e2e8f0', surface: '#ffffff', text: '#0f172a' },
-  dark: { axis: '#9aa7bd', grid: '#2d374b', surface: '#161d2c', text: '#e8eef7' },
+  light: { axis: '#8c7a62', grid: '#e2d5b8', surface: '#fffdf8', text: '#2b2620' },
+  dark: { axis: '#b0a086', grid: '#453c30', surface: '#2e2820', text: '#f2ebdd' },
 } as const
 
 export interface ChartTheme {
@@ -78,10 +79,11 @@ export function useChartTheme(): ChartTheme {
         contentStyle: {
           background: ink.surface,
           border: `1px solid ${ink.grid}`,
-          borderRadius: 10,
-          fontSize: 12,
+          borderRadius: 3,
+          fontSize: 11,
+          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
           padding: '8px 10px',
-          boxShadow: '0 8px 24px rgb(15 23 42 / 0.12)',
+          boxShadow: '3px 4px 0 rgb(43 38 32 / 0.12)',
         },
         labelStyle: { color: ink.text, fontWeight: 600, marginBottom: 2 },
         itemStyle: { color: ink.axis },
