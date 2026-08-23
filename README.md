@@ -105,36 +105,6 @@ Tailwind's `surface`/`content`/`line` scales.
 - Custom date range on the completion trend chart
 - PNG export of the analytics view, no extra dependency
 
-## A few decisions worth explaining
-
-**Refresh token in localStorage.** The brief asks for it and that's what this
-does, but it isn't what I'd ship. Any XSS on the page can read it. In production
-it belongs in an httpOnly, SameSite cookie, with the access token still in memory
-like it is here.
-
-**The polling endpoint doesn't change.** `GET /posts?_limit=5` returns the same
-five records every time, so "treat new post ids as new notifications" would fire
-once and never again. I kept the five-post window but slide it forward by one
-post per poll, so exactly one id is new each tick. Sliding by a whole page was
-my first attempt and it was a firehose — five notifications every twenty seconds
-and the badge at 100 inside seven minutes.
-
-**Team activity notifications go past the brief.** Task 05 scopes notifications
-to the poll, so I'm flagging this rather than slipping it in. The seed
-notifications in `mock-data.json` are all interpersonal ("You have been assigned
-to…", "A review has been requested for…"), which describes teammates notifying
-each other — but nothing in the polled feed ever produces that. So assigning or
-moving a task now raises activity addressed to the assignee. You're never
-notified about your own action, and each member has a separate inbox.
-
-There's no backend, so delivery is simulated inside one browser: sign in as
-`emilys`, move a task assigned to Michael Williams, sign out, sign in as
-`michaelw`. Two browsers will never sync.
-
-**Column membership has one owner.** The Zustand board store owns it. The task
-record's `status` field is a projection that gets written through on drop, which
-is also what stamps `completedAt` for the trend chart. Longer version in
-[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md#why-the-arrangement-lives-in-zustand).
 
 ## Deployment
 
@@ -157,25 +127,7 @@ Beyond the test suite, I verified in a real browser:
   text on a lane at 4.56:1, against the 4.5:1 AA needs. One token from the design
   spec measured 4.07:1 and was darkened until it cleared.
 
-## Known gaps
 
-- **The backend is a local module.** `src/services/data/localData.ts` mutates an
-  in-memory dataset mirrored to localStorage. Data survives a refresh but is
-  per-browser and never shared. Swapping in a real API means rewriting that one
-  file. Clearing site data resets to the seed.
-- **No pagination or virtualisation.** Everything loads in one page. Fine at 30
-  cards, would need windowing at a few hundred.
-- **PNG export captures the charts, not the page.** Header, filters and card
-  chrome aren't in the image.
-- **Rotating refresh tokens have an edge case.** If a refresh response is lost
-  (tab closed mid-flight) the stored token is already spent, and the next visit
-  lands on login. Fixing that properly needs server-side token families, which
-  DummyJSON doesn't offer.
-- **Not attempted:** Storybook, and automated axe-core testing. Accessibility was
-  checked with Lighthouse's axe rules and by driving every flow from the keyboard.
-- **Comment authorship is inferred.** The signed-in DummyJSON account is matched
-  to a seed team member by name, falling back to the first member. The two
-  datasets are unrelated, so only two of the six names line up.
 
 ## Docs
 

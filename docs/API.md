@@ -33,7 +33,7 @@ Exchanges credentials for a token pair.
 | `expiresInMins` | `number` | Access-token lifetime. `1` in development, `60` in a production build |
 
 ```json
-{ "username": "emilys", "password": "emilyspass", "expiresInMins": 1 }
+{ "username": "abc", "password": "XYX", "expiresInMins": 1 }
 ```
 
 **Response `200`**
